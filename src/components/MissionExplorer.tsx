@@ -81,19 +81,21 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
   const [isSearchingLiveGithub, setIsSearchingLiveGithub] = useState(false);
   const [liveGithubQuery, setLiveGithubQuery] = useState('');
   const [liveGithubLanguage, setLiveGithubLanguage] = useState(
-    userProfile.preferredLanguages?.[0]?.toLowerCase() || 'typescript'
+    userProfile.skillsDemonstrated?.[0]?.toLowerCase() ||
+    userProfile.preferredLanguages?.[0]?.toLowerCase() ||
+    'typescript'
   );
 
   const getRankBadge = (diff: MissionDifficulty) => {
     switch (diff) {
       case 'Beginner':
-        return { label: 'RANK D · NOVICE', color: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' };
+        return { label: 'RANK D · NOVICE', color: 'text-emerald-800 border-emerald-200 bg-emerald-50' };
       case 'Intermediate':
-        return { label: 'RANK B · SKILLED', color: 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10' };
+        return { label: 'RANK B · SKILLED', color: 'text-sky-800 border-sky-200 bg-sky-50' };
       case 'Advanced':
-        return { label: 'RANK S · ELITE', color: 'text-violet-400 border-violet-500/30 bg-violet-500/10' };
+        return { label: 'RANK S · ELITE', color: 'text-violet-800 border-violet-200 bg-violet-50' };
       default:
-        return { label: 'RANK D', color: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' };
+        return { label: 'RANK D', color: 'text-emerald-800 border-emerald-200 bg-emerald-50' };
     }
   };
 
@@ -216,75 +218,75 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Tactical Quest Terminal Header */}
-      <div className="relative rounded-xl border border-[#1A263A] bg-gradient-to-r from-[#0C121D] via-[#0E1523] to-[#0A0F19] p-6 shadow-xl overflow-hidden">
+      {/* Light & Minimal Header Card */}
+      <div className="relative rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div className="max-w-2xl space-y-2">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-              <Radio className="h-3.5 w-3.5 text-emerald-400 animate-pulse" />
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-semibold">
+              <Radio className="h-3.5 w-3.5 text-emerald-600 animate-pulse" />
               <span>TERMINAL TELEMETRY</span>
-              <span className="text-slate-600">/</span>
+              <span className="text-slate-300">/</span>
               <span>LIVE BOUNTY REGISTRY</span>
-              <span className="text-slate-600">/</span>
-              <span className="text-cyan-400">0 ASSIGNEES VERIFIED</span>
+              <span className="text-slate-300">/</span>
+              <span className="text-sky-700 font-semibold">0 ASSIGNEES VERIFIED</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Open-Source Bounty Board
             </h1>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               Every bounty is verified for active maintainer response, zero existing assignees, and beginner friendliness. Accept an operation to initiate the 8-stage guided workflow with Gemma AI.
             </p>
           </div>
 
           {/* User Tactical Telemetry Card */}
-          <div className="rounded-xl border border-[#1F2E47] bg-[#0A101A] p-4 text-xs font-mono space-y-2 min-w-[240px] shrink-0">
-            <div className="flex items-center justify-between border-b border-[#1A263A] pb-2">
-              <span className="text-slate-400 text-[11px]">CONTRIBUTOR SPEC</span>
-              <span className="text-emerald-400 font-bold">@{userProfile.githubUsername}</span>
+          <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4 text-xs font-mono space-y-2 min-w-[240px] shrink-0">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+              <span className="text-slate-500 text-[11px]">CONTRIBUTOR SPEC</span>
+              <span className="text-emerald-700 font-bold">@{userProfile.githubUsername}</span>
             </div>
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-slate-400">AFFINITY FOCUS:</span>
-              <span className="text-cyan-300 font-bold">
-                {(userProfile.preferredLanguages || []).slice(0, 2).join(', ') || 'TypeScript'}
+              <span className="text-slate-500">AFFINITY FOCUS:</span>
+              <span className="text-sky-700 font-bold">
+                {(userProfile.skillsDemonstrated || userProfile.preferredLanguages || []).slice(0, 2).join(', ') || 'TypeScript'}
               </span>
             </div>
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-slate-400">TARGET RANK:</span>
-              <span className="text-violet-400 font-bold">{userProfile.suggestedDifficulty}</span>
+              <span className="text-slate-500">TARGET RANK:</span>
+              <span className="text-violet-700 font-bold">{userProfile.suggestedDifficulty}</span>
             </div>
           </div>
         </div>
 
-        {/* Tactical Mode Selector */}
-        <div className="mt-6 pt-4 border-t border-[#182335] flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 p-1 bg-[#090E17] border border-[#1A263A] rounded-lg">
+        {/* View Mode Selector Tabs */}
+        <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5 p-1 bg-slate-100/80 border border-slate-200 rounded-xl">
             <button
               onClick={() => setViewMode('vetted')}
-              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono font-semibold rounded-md transition ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono font-semibold rounded-lg transition cursor-pointer ${
                 viewMode === 'vetted'
-                  ? 'bg-[#152033] text-emerald-400 border border-emerald-500/30 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-emerald-800 shadow-xs border border-slate-200/80'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Target className="h-3.5 w-3.5 text-emerald-400" />
+              <Target className="h-3.5 w-3.5 text-emerald-600" />
               <span>Vetted Bounties ({filteredMissions.length})</span>
             </button>
 
             <button
               onClick={() => setViewMode('live_github')}
-              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono font-semibold rounded-md transition ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono font-semibold rounded-lg transition cursor-pointer ${
                 viewMode === 'live_github'
-                  ? 'bg-[#152033] text-cyan-400 border border-cyan-500/30 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-sky-800 shadow-xs border border-slate-200/80'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Globe className="h-3.5 w-3.5 text-cyan-400" />
+              <Globe className="h-3.5 w-3.5 text-sky-600" />
               <span>Live GitHub Sector Query</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-            <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
+            <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
             <span>Real-time maintainer health checks enforced</span>
           </div>
         </div>
@@ -293,28 +295,30 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
       {/* VIEW 1: Vetted Bounties */}
       {viewMode === 'vetted' && (
         <>
-          {/* Tactical Filters */}
+          {/* Minimal Filter Controls */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by keywords, repository, or technology (e.g. tooltip, react, docs)..."
-                className="w-full rounded-lg border border-[#1A263A] bg-[#0C121D] pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none font-mono"
+                className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none font-mono shadow-2xs"
               />
             </div>
 
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="rounded-lg border border-[#1A263A] bg-[#0C121D] px-3 py-2 text-xs font-mono text-slate-300 focus:border-emerald-500 focus:outline-none"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-mono text-slate-700 focus:border-emerald-600 focus:outline-none shadow-2xs cursor-pointer"
             >
               <option value="all">All Sectors (Languages)</option>
               <option value="typescript">TypeScript</option>
               <option value="javascript">JavaScript</option>
               <option value="python">Python</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
               <option value="react">React</option>
               <option value="node.js">Node.js</option>
             </select>
@@ -322,7 +326,7 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
             <select
               value={selectedDifficulty}
               onChange={(e) => setSelectedDifficulty(e.target.value)}
-              className="rounded-lg border border-[#1A263A] bg-[#0C121D] px-3 py-2 text-xs font-mono text-slate-300 focus:border-emerald-500 focus:outline-none"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-mono text-slate-700 focus:border-emerald-600 focus:outline-none shadow-2xs cursor-pointer"
             >
               <option value="all">All Threat Levels</option>
               <option value="beginner">Rank D (Novice)</option>
@@ -333,7 +337,7 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="rounded-lg border border-[#1A263A] bg-[#0C121D] px-3 py-2 text-xs font-mono text-slate-300 focus:border-emerald-500 focus:outline-none"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-mono text-slate-700 focus:border-emerald-600 focus:outline-none shadow-2xs cursor-pointer"
             >
               <option value="all">All Operation Types</option>
               <option value="bug">Bug Fixes</option>
@@ -345,9 +349,9 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
 
           {/* Bounty Cards Grid */}
           {filteredMissions.length === 0 ? (
-            <div className="rounded-xl border border-[#1A263A] bg-[#0C121D] p-12 text-center space-y-3 font-mono">
-              <FolderGit2 className="mx-auto h-8 w-8 text-slate-600" />
-              <h3 className="text-sm font-semibold text-slate-300">No active bounties matching parameters</h3>
+            <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center space-y-3 font-mono shadow-sm">
+              <FolderGit2 className="mx-auto h-8 w-8 text-slate-400" />
+              <h3 className="text-sm font-semibold text-slate-800">No active bounties matching parameters</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
                 Loosen search parameters or switch to Live GitHub Sector Query to scan external repositories.
               </p>
@@ -364,76 +368,76 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
                   <div
                     key={mission.id}
                     onClick={() => onSelectMission(mission)}
-                    className={`group relative rounded-xl border p-5 transition cursor-pointer flex flex-col justify-between ${
+                    className={`group relative rounded-2xl border p-6 transition cursor-pointer flex flex-col justify-between ${
                       isActive
-                        ? 'border-cyan-500/60 bg-[#0C1726] shadow-lg shadow-cyan-950/40'
-                        : 'border-[#182335] bg-[#0C121D] hover:border-slate-600 hover:bg-[#0F1724]'
+                        ? 'border-sky-300 bg-sky-50/40 shadow-sm ring-1 ring-sky-200'
+                        : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm'
                     }`}
                   >
                     <div>
                       {/* Top Bar: Rank Stamp & Affinity Telemetry */}
-                      <div className="flex items-center justify-between text-xs font-mono mb-2.5">
+                      <div className="flex items-center justify-between text-xs font-mono mb-3">
                         <div className="flex items-center gap-2">
                           <span
-                            className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${rankInfo.color}`}
+                            className={`text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase ${rankInfo.color}`}
                           >
                             {rankInfo.label}
                           </span>
-                          <span className="text-slate-400 font-medium">
+                          <span className="text-slate-500 font-medium">
                             {mission.repoOwner}/{mission.repoName} #{mission.issueNumber}
                           </span>
                         </div>
 
                         {/* Match Affinity Badge */}
                         <div className="flex items-center gap-2 shrink-0">
-                          <span className="text-[11px] font-bold font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                          <span className="text-[11px] font-bold font-mono text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
                             {mission.matchScore}% AFFINITY
                           </span>
-                          <span className="text-violet-400 font-bold font-mono">
+                          <span className="text-violet-700 font-bold font-mono">
                             +{mission.xpReward} XP
                           </span>
                         </div>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 mb-2">
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 mb-2">
                         {mission.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-3">
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
                         {mission.description}
                       </p>
 
                       {/* Strategic Intel Briefing */}
-                      <div className="rounded-lg bg-[#070B12] border border-[#162030] p-2.5 mb-3 text-xs">
+                      <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-3 mb-3.5 text-xs">
                         <div className="flex items-start gap-1.5">
-                          <Sparkles className="h-3.5 w-3.5 text-cyan-400 mt-0.5 shrink-0" />
-                          <div className="text-[11px] text-slate-300">
-                            <span className="text-cyan-400 font-mono font-medium">Gemma Rationale: </span>
+                          <Sparkles className="h-3.5 w-3.5 text-sky-600 mt-0.5 shrink-0" />
+                          <div className="text-[11px] text-slate-700">
+                            <span className="text-sky-800 font-mono font-semibold">Gemma Rationale: </span>
                             {mission.whyRecommended}
                           </div>
                         </div>
                       </div>
 
                       {/* Tech Stacks & Target Files */}
-                      <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-slate-400 mb-4">
+                      <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-slate-600 mb-4">
                         {mission.technologies.map((tech, i) => (
-                          <span key={i} className="bg-[#141C2B] border border-[#1E2A3E] px-2 py-0.5 rounded text-slate-300">
+                          <span key={i} className="bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-slate-700">
                             {tech}
                           </span>
                         ))}
-                        <span className="text-slate-600">·</span>
-                        <span className="flex items-center gap-1 text-slate-400">
+                        <span className="text-slate-300">·</span>
+                        <span className="flex items-center gap-1 text-slate-500">
                           <Clock className="h-3 w-3" /> ~{mission.estimatedHours}h
                         </span>
                       </div>
                     </div>
 
                     {/* Card Footer: Repo Health & Accept Action */}
-                    <div className="pt-3 border-t border-[#182335] flex items-center justify-between gap-3 text-xs font-mono">
-                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3 text-xs font-mono">
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
                         <span>{repo?.healthScore || 95}/100 Health</span>
                       </div>
 
@@ -442,11 +446,11 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
                           type="button"
                           onClick={(e) => handleRevalidate(mission, e)}
                           title="Re-check GitHub issue status"
-                          className="p-1.5 text-slate-400 hover:text-white rounded hover:bg-[#152033] transition"
+                          className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition cursor-pointer"
                         >
                           <RefreshCw
                             className={`h-3.5 w-3.5 ${
-                              revalidatingId === mission.id ? 'animate-spin text-cyan-400' : ''
+                              revalidatingId === mission.id ? 'animate-spin text-sky-600' : ''
                             }`}
                           />
                         </button>
@@ -454,10 +458,10 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
                         <button
                           type="button"
                           onClick={() => onSelectMission(mission)}
-                          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition font-mono ${
+                          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition font-mono cursor-pointer ${
                             isActive
-                              ? 'bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-md shadow-cyan-500/20'
-                              : 'bg-emerald-400 text-slate-950 hover:bg-emerald-300 shadow-md shadow-emerald-500/20'
+                              ? 'bg-sky-600 text-white hover:bg-sky-500 shadow-sm'
+                              : 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-sm'
                           }`}
                         >
                           <span>{isActive ? 'Resume Mission' : 'Accept Bounty'}</span>
@@ -467,8 +471,8 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
                     </div>
 
                     {revalMsg && (
-                      <div className="mt-2 text-[10px] font-mono text-cyan-300 bg-cyan-950/40 border border-cyan-800/60 px-2 py-1 rounded flex items-center gap-1">
-                        <CheckCircle2 className="h-3 w-3 text-cyan-400 shrink-0" />
+                      <div className="mt-2 text-[10px] font-mono text-sky-800 bg-sky-50 border border-sky-200 px-2.5 py-1 rounded-md flex items-center gap-1.5">
+                        <CheckCircle2 className="h-3 w-3 text-sky-600 shrink-0" />
                         <span className="truncate">{revalMsg}</span>
                       </div>
                     )}
@@ -483,36 +487,36 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
       {/* VIEW 2: Live GitHub Sector Query */}
       {viewMode === 'live_github' && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-[#1A263A] bg-[#0C121D] p-5 space-y-3 font-mono">
-            <div className="flex items-center justify-between">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 font-mono shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Globe className="h-4 w-4 text-cyan-400" />
+                <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <Globe className="h-4 w-4 text-sky-600" />
                   <span>Real-Time GitHub Sector Intercept</span>
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Direct live query to GitHub REST API targeting unassigned <code className="text-emerald-400">good first issue</code> tickets.
+                <p className="text-xs text-slate-600 mt-0.5">
+                  Direct live query to GitHub REST API targeting unassigned <code className="text-emerald-700 bg-emerald-50 px-1 py-0.5 rounded border border-emerald-200">good first issue</code> tickets.
                 </p>
               </div>
 
-              <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/30">
+              <span className="text-[10px] text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 self-start sm:self-auto font-semibold">
                 LIVE INTERCEPT
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2 pt-1">
+            <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
               <input
                 type="text"
                 value={liveGithubQuery}
                 onChange={(e) => setLiveGithubQuery(e.target.value)}
                 placeholder="Keywords (e.g. bug, button, docs, test)..."
-                className="flex-1 rounded-lg border border-[#1E2C42] bg-[#080B11] px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
+                className="flex-1 rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-sky-600 focus:bg-white focus:outline-none shadow-2xs"
               />
 
               <select
                 value={liveGithubLanguage}
                 onChange={(e) => setLiveGithubLanguage(e.target.value)}
-                className="rounded-lg border border-[#1E2C42] bg-[#080B11] px-3 py-2 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs text-slate-700 focus:border-sky-600 focus:outline-none shadow-2xs cursor-pointer"
               >
                 <option value="typescript">TypeScript</option>
                 <option value="javascript">JavaScript</option>
@@ -524,7 +528,7 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
               <button
                 onClick={fetchLiveGithubIssues}
                 disabled={isSearchingLiveGithub}
-                className="px-4 py-2 bg-cyan-500 text-slate-950 font-bold text-xs rounded-lg hover:bg-cyan-400 transition disabled:opacity-50 whitespace-nowrap flex items-center gap-1.5 shadow-md shadow-cyan-500/20"
+                className="px-5 py-2.5 bg-sky-600 text-white font-semibold text-xs rounded-xl hover:bg-sky-500 transition disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
               >
                 <Search className="h-3.5 w-3.5" />
                 <span>{isSearchingLiveGithub ? 'Scanning Sector...' : 'Scan GitHub Sector'}</span>
@@ -534,12 +538,12 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
 
           {/* Live Search Results */}
           {isSearchingLiveGithub ? (
-            <div className="py-12 text-center text-xs font-mono text-slate-400 space-y-2">
-              <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent"></div>
+            <div className="py-12 text-center text-xs font-mono text-slate-500 space-y-2">
+              <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-sky-600 border-t-transparent"></div>
               <p>Intercepting unassigned open-source issues from GitHub API...</p>
             </div>
           ) : liveGithubIssues.length === 0 ? (
-            <div className="rounded-xl border border-[#1A263A] bg-[#0C121D] p-8 text-center text-xs font-mono text-slate-400">
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-xs font-mono text-slate-500 shadow-sm">
               No transmissions received. Click "Scan GitHub Sector" to intercept real-time open-source bounties.
             </div>
           ) : (
@@ -547,39 +551,39 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
               {liveGithubIssues.map((gh) => (
                 <div
                   key={gh.id}
-                  className="rounded-xl border border-[#182335] bg-[#0C121D] p-5 flex flex-col justify-between hover:border-slate-600 transition"
+                  className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col justify-between hover:border-slate-300 hover:shadow-sm transition"
                 >
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+                    <div className="flex items-center justify-between text-xs text-slate-500 font-mono">
                       <span>{gh.repoOwner}/{gh.repoName} · #{gh.issueNumber}</span>
-                      <span className="text-cyan-400 text-[10px] bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
+                      <span className="text-sky-800 text-[10px] bg-sky-50 px-2 py-0.5 rounded border border-sky-200 font-semibold">
                         LIVE TICKET
                       </span>
                     </div>
 
-                    <h4 className="text-sm font-bold text-white line-clamp-2">
+                    <h4 className="text-sm font-bold text-slate-900 line-clamp-2">
                       {gh.title}
                     </h4>
 
-                    <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
                       {gh.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-1 text-[10px] font-mono text-slate-300">
+                    <div className="flex flex-wrap gap-1 text-[10px] font-mono text-slate-600">
                       {(gh.labels || []).slice(0, 3).map((lbl: string, i: number) => (
-                        <span key={i} className="bg-[#141C2B] border border-[#1E2A3E] px-2 py-0.5 rounded">
+                        <span key={i} className="bg-slate-100 border border-slate-200 px-2 py-0.5 rounded">
                           {lbl}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="pt-4 mt-3 border-t border-[#182335] flex items-center justify-between text-xs font-mono">
+                  <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
                     <a
                       href={gh.issueUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-slate-400 hover:text-white flex items-center gap-1 text-[11px]"
+                      className="text-slate-500 hover:text-slate-800 flex items-center gap-1 text-[11px]"
                     >
                       <span>Inspect on GitHub</span>
                       <ExternalLink className="h-3 w-3" />
@@ -587,7 +591,7 @@ export const MissionExplorer: React.FC<MissionExplorerProps> = ({
 
                     <button
                       onClick={() => handleAdoptLiveIssue(gh)}
-                      className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-400 text-slate-950 font-bold text-xs rounded-lg hover:bg-emerald-300 transition shadow-md shadow-emerald-500/20"
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 text-white font-semibold text-xs rounded-xl hover:bg-emerald-500 transition shadow-sm cursor-pointer"
                     >
                       <PlusCircle className="h-3.5 w-3.5" />
                       <span>Accept as Bounty</span>

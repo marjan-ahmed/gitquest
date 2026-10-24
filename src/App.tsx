@@ -150,7 +150,7 @@ export default function App() {
         )}
 
         {/* Repo Health Radar */}
-        {currentTab === 'radar' && <RepoHealthRadar />}
+        {currentTab === 'radar' && <RepoHealthRadar userProfile={profile} />}
 
         {/* Profile & Badges */}
         {currentTab === 'profile' && profile && (

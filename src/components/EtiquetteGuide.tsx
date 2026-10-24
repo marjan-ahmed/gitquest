@@ -92,29 +92,29 @@ export const EtiquetteGuide: React.FC<EtiquetteGuideProps> = ({ userProfile, onU
   return (
     <div className="space-y-6 py-2">
       {/* Header Dossier */}
-      <div className="rounded-xl border border-slate-800 bg-[#0A0F1D] p-6 shadow-xl relative overflow-hidden bg-grid-pattern">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm relative overflow-hidden bg-grid-pattern">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="max-w-xl space-y-2">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-              <ShieldCheck className="h-4 w-4" />
-              <span>RULES OF ENGAGEMENT // OSS REPUTATION PROTOCOL</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-semibold">
+              <ShieldCheck className="h-4 w-4 text-emerald-600" />
+              <span>COMMUNITY STANDARDS // OSS REPUTATION PROTOCOL</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold font-mono text-white tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-bold font-mono text-slate-900 tracking-tight">
               Maintainer Etiquette & Karma Codex
             </h1>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed font-normal">
               Open source is fueled by volunteer maintainers balancing demanding careers and families. Contributors who respect etiquette earn fast reviews, maintainer mentorship, and career-defining recommendations.
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-800 bg-[#0D1322] p-5 text-center shrink-0 min-w-[180px]">
-            <span className="text-[10px] font-mono tracking-wider text-slate-400 block mb-1">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center shrink-0 min-w-[180px] shadow-2xs">
+            <span className="text-[10px] font-mono tracking-wider text-slate-500 block mb-1 font-semibold">
               CONTRIBUTOR KARMA
             </span>
-            <div className="text-3xl font-bold font-mono text-emerald-400 tabular-nums">
+            <div className="text-3xl font-bold font-mono text-emerald-700 tabular-nums">
               {userProfile.etiquetteScore}/100
             </div>
-            <span className="text-[10px] font-mono text-cyan-400 block mt-1">
+            <span className="text-[10px] font-mono text-sky-800 font-semibold block mt-1">
               {userProfile.etiquetteScore >= 90 ? 'STATUS: HIGH TRUST' : 'STATUS: RELIABLE'}
             </span>
           </div>
@@ -122,11 +122,11 @@ export const EtiquetteGuide: React.FC<EtiquetteGuideProps> = ({ userProfile, onU
       </div>
 
       {/* Interactive Scenario Simulator */}
-      <div className="rounded-xl border border-cyan-500/30 bg-[#0D1322] p-6 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-          <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-            <Terminal className="h-4 w-4" />
-            <span>ETIQUETTE COMBAT DRILL // SIMULATED MAINTAINER DILEMMA</span>
+      <div className="rounded-2xl border border-sky-200 bg-sky-50/40 p-6 space-y-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-sky-200/80 pb-3">
+          <div className="flex items-center gap-2 text-xs font-mono text-sky-800 font-semibold">
+            <Terminal className="h-4 w-4 text-sky-600" />
+            <span>ETIQUETTE DRILL // SIMULATED MAINTAINER DILEMMA</span>
           </div>
           <div className="flex items-center gap-2">
             {scenarios.map((_, idx) => (
@@ -136,10 +136,10 @@ export const EtiquetteGuide: React.FC<EtiquetteGuideProps> = ({ userProfile, onU
                   setSelectedScenarioIndex(idx);
                   setUserChoice(null);
                 }}
-                className={`px-2.5 py-1 text-[11px] font-mono rounded ${
+                className={`px-3 py-1 text-[11px] font-mono rounded-lg transition cursor-pointer ${
                   selectedScenarioIndex === idx
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold'
-                    : 'bg-slate-900 text-slate-400 hover:text-white'
+                    ? 'bg-sky-600 text-white font-semibold shadow-2xs'
+                    : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
                 }`}
               >
                 Drill 0{idx + 1}
@@ -149,38 +149,38 @@ export const EtiquetteGuide: React.FC<EtiquetteGuideProps> = ({ userProfile, onU
         </div>
 
         <div className="space-y-3">
-          <h3 className="text-sm font-bold text-white font-mono">{currentScenario.title}</h3>
-          <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3.5 rounded-lg border border-slate-800">
+          <h3 className="text-sm font-bold text-slate-900 font-mono">{currentScenario.title}</h3>
+          <p className="text-xs text-slate-700 leading-relaxed bg-white p-4 rounded-xl border border-sky-200/80 shadow-2xs">
             {currentScenario.prompt}
           </p>
 
           {/* Options */}
-          <div className="space-y-2 pt-2">
+          <div className="space-y-2 pt-1">
             {currentScenario.options.map((opt, optIdx) => {
               const isSelected = userChoice === optIdx;
               return (
                 <button
                   key={optIdx}
                   onClick={() => setUserChoice(optIdx)}
-                  className={`w-full text-left p-3.5 rounded-lg border text-xs font-mono transition flex items-start gap-3 ${
+                  className={`w-full text-left p-4 rounded-xl border text-xs font-mono transition flex items-start gap-3 cursor-pointer ${
                     isSelected
                       ? opt.isCorrect
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-200'
-                        : 'border-rose-500 bg-rose-500/10 text-rose-200'
-                      : 'border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 hover:bg-slate-900'
+                        ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-medium shadow-2xs'
+                        : 'border-rose-400 bg-rose-50 text-rose-950 shadow-2xs'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                   }`}
                 >
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-800 text-[10px] font-bold">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-700">
                     {String.fromCharCode(65 + optIdx)}
                   </span>
                   <div className="space-y-1.5 flex-1">
                     <div>{opt.text}</div>
                     {isSelected && (
                       <div
-                        className={`text-[11px] font-sans p-2 rounded ${
+                        className={`text-[11px] font-sans p-2.5 rounded-lg ${
                           opt.isCorrect
-                            ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30'
-                            : 'bg-rose-950/40 text-rose-300 border border-rose-500/30'
+                            ? 'bg-white text-emerald-900 border border-emerald-300 shadow-2xs'
+                            : 'bg-white text-rose-900 border border-rose-300 shadow-2xs'
                         }`}
                       >
                         <strong>{opt.isCorrect ? 'Maintainer Approved: ' : 'Maintainer Friction: '}</strong>
@@ -197,43 +197,43 @@ export const EtiquetteGuide: React.FC<EtiquetteGuideProps> = ({ userProfile, onU
 
       {/* Rules Dossier Cards */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 font-semibold">
           <span>THE 5 CARDINAL DIRECTIVES</span>
         </div>
 
         {ETIQUETTE_RULES.map((rule, idx) => (
           <div
             key={rule.id}
-            className="rounded-xl border border-slate-800 bg-[#0E1526] p-5 space-y-3"
+            className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3 shadow-2xs"
           >
             <div className="flex items-center gap-2.5">
-              <span className="flex h-6 w-6 items-center justify-center rounded bg-slate-800 text-xs font-mono font-bold text-emerald-400 border border-slate-700">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-50 text-xs font-mono font-bold text-emerald-800 border border-emerald-200">
                 0{idx + 1}
               </span>
-              <h3 className="text-sm font-bold font-mono text-white">{rule.title}</h3>
+              <h3 className="text-sm font-bold font-mono text-slate-900">{rule.title}</h3>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed pl-8">
+            <p className="text-xs text-slate-600 leading-relaxed pl-8 font-normal">
               {rule.guidance}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-8 pt-1">
-              <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-400">
-                  <Check className="h-3.5 w-3.5" />
+              <div className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/60 space-y-1.5">
+                <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-800">
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
                   <span>RECOMMENDED WAY (DO)</span>
                 </div>
-                <p className="text-xs text-slate-300 italic font-mono text-[11px]">
+                <p className="text-xs text-slate-700 italic font-mono text-[11px]">
                   "{rule.doExample}"
                 </p>
               </div>
 
-              <div className="p-3 rounded-lg border border-rose-500/30 bg-rose-500/5 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-rose-400">
-                  <X className="h-3.5 w-3.5" />
+              <div className="p-3.5 rounded-xl border border-rose-200 bg-rose-50/60 space-y-1.5">
+                <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-rose-800">
+                  <X className="h-3.5 w-3.5 text-rose-600" />
                   <span>DISCOURAGED BEHAVIOR (DON'T)</span>
                 </div>
-                <p className="text-xs text-slate-300 italic font-mono text-[11px]">
+                <p className="text-xs text-slate-700 italic font-mono text-[11px]">
                   "{rule.dontExample}"
                 </p>
               </div>
@@ -243,31 +243,31 @@ export const EtiquetteGuide: React.FC<EtiquetteGuideProps> = ({ userProfile, onU
       </div>
 
       {/* GitQuest Contributor Pledge Seal */}
-      <div className="rounded-xl border border-emerald-500/40 bg-gradient-to-r from-emerald-950/30 via-slate-900 to-[#0B1120] p-6 sm:p-8 space-y-4">
+      <div className="rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-teal-50/40 to-white p-6 sm:p-8 space-y-4 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-              <Award className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-semibold">
+              <Award className="h-4 w-4 text-emerald-600" />
               <span>THE GITQUEST CONTRIBUTOR PLEDGE</span>
             </div>
-            <h3 className="text-lg font-bold text-white">
+            <h3 className="text-lg font-bold text-slate-900">
               Commit to High-Signal Open-Source Collaboration
             </h3>
-            <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
+            <p className="text-xs text-slate-600 max-w-xl leading-relaxed">
               "I pledge to verify issue eligibility before coding, respect maintainer time by keeping pull requests scoped and clean, provide reproduction steps for all bug fixes, and treat open-source maintainers as valued community members."
             </p>
           </div>
 
           <div className="shrink-0">
             {pledged ? (
-              <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold">
-                <CheckCircle2 className="h-4 w-4" />
+              <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-100/70 border border-emerald-300 text-emerald-800 text-xs font-mono font-bold shadow-2xs">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                 <span>PLEDGE SIGNED & VERIFIED</span>
               </div>
             ) : (
               <button
                 onClick={handlePledge}
-                className="flex items-center gap-2 px-5 py-3 rounded-lg bg-emerald-400 text-slate-950 font-mono font-bold text-xs hover:bg-emerald-300 transition shadow-lg shadow-emerald-500/20 active:scale-[0.99]"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 text-white font-mono font-semibold text-xs hover:bg-emerald-500 transition shadow-sm cursor-pointer active:scale-[0.99]"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>Sign Pledge (+50 XP)</span>

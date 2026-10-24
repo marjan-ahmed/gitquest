@@ -223,6 +223,410 @@ app.get('/api/github/repo/:owner/:repo', async (req: Request, res: Response) => 
   }
 });
 
+// Dynamic Recommended Repositories API (Tailored to User Skills & Languages)
+const LANGUAGE_REPO_CATALOG: Record<string, any[]> = {
+  python: [
+    {
+      id: 'repo-fastapi',
+      owner: 'fastapi',
+      name: 'fastapi',
+      description: 'FastAPI framework, high performance, easy to learn, fast to code, ready for production.',
+      stars: 80400,
+      forks: 7100,
+      primaryLanguage: 'Python',
+      healthScore: 94,
+      lastCommitDaysAgo: 2,
+      maintainerResponseHours: 14,
+      openIssuesCount: 230,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/fastapi/fastapi',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/10298444?v=4',
+      matchReason: 'Top Python API framework with extensive beginner documentation and good first issues.',
+    },
+    {
+      id: 'repo-black',
+      owner: 'psf',
+      name: 'black',
+      description: 'The uncompromising Python code formatter. Welcoming community with clear testing guides.',
+      stars: 38200,
+      forks: 2400,
+      primaryLanguage: 'Python',
+      healthScore: 96,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 10,
+      openIssuesCount: 160,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/psf/black',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/1525981?v=4',
+      matchReason: 'Standard Python formatter; ideal for learning Python AST parsing and CLI tools.',
+    },
+    {
+      id: 'repo-httpx',
+      owner: 'encode',
+      name: 'httpx',
+      description: 'A next generation HTTP client for Python with sync and async support.',
+      stars: 14800,
+      forks: 1200,
+      primaryLanguage: 'Python',
+      healthScore: 95,
+      lastCommitDaysAgo: 2,
+      maintainerResponseHours: 12,
+      openIssuesCount: 95,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/encode/httpx',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/38740114?v=4',
+      matchReason: 'Clean codebase with high test coverage, friendly maintainers, and good first issue tags.',
+    },
+    {
+      id: 'repo-flask',
+      owner: 'pallets',
+      name: 'flask',
+      description: 'The Python micro framework for building web applications and APIs.',
+      stars: 69200,
+      forks: 16100,
+      primaryLanguage: 'Python',
+      healthScore: 91,
+      lastCommitDaysAgo: 3,
+      maintainerResponseHours: 18,
+      openIssuesCount: 110,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/pallets/flask',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/1674844?v=4',
+      matchReason: 'Foundational Python project with active maintainers and community triage.',
+    },
+  ],
+  rust: [
+    {
+      id: 'repo-tokio',
+      owner: 'tokio-rs',
+      name: 'tokio',
+      description: 'A runtime for writing reliable, asynchronous, and slim applications with the Rust programming language.',
+      stars: 27900,
+      forks: 2600,
+      primaryLanguage: 'Rust',
+      healthScore: 97,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 8,
+      openIssuesCount: 190,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/tokio-rs/tokio',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/23588975?v=4',
+      matchReason: 'Premier Rust async ecosystem with mentored issues and discord community support.',
+    },
+    {
+      id: 'repo-ripgrep',
+      owner: 'BurntSushi',
+      name: 'ripgrep',
+      description: 'ripgrep recursively searches directories for a regex pattern while respecting your gitignore.',
+      stars: 49800,
+      forks: 2100,
+      primaryLanguage: 'Rust',
+      healthScore: 93,
+      lastCommitDaysAgo: 4,
+      maintainerResponseHours: 24,
+      openIssuesCount: 140,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/BurntSushi/ripgrep',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/365111?v=4',
+      matchReason: 'Legendary Rust CLI utility with exemplary code quality and performance benchmarks.',
+    },
+    {
+      id: 'repo-tauri',
+      owner: 'tauri-apps',
+      name: 'tauri',
+      description: 'Build smaller, faster, and more secure desktop and mobile applications with a web frontend.',
+      stars: 87100,
+      forks: 3100,
+      primaryLanguage: 'Rust',
+      healthScore: 96,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 12,
+      openIssuesCount: 310,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/tauri-apps/tauri',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/52614211?v=4',
+      matchReason: 'High growth ecosystem combining Rust systems code with modern web interfaces.',
+    },
+  ],
+  go: [
+    {
+      id: 'repo-gin',
+      owner: 'gin-gonic',
+      name: 'gin',
+      description: 'Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with 40x performance.',
+      stars: 81200,
+      forks: 8200,
+      primaryLanguage: 'Go',
+      healthScore: 92,
+      lastCommitDaysAgo: 2,
+      maintainerResponseHours: 16,
+      openIssuesCount: 220,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/gin-gonic/gin',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/7434526?v=4',
+      matchReason: 'The most popular Go web framework with frequent community contributions.',
+    },
+    {
+      id: 'repo-bubbletea',
+      owner: 'charmbracelet',
+      name: 'bubbletea',
+      description: 'A powerful little TUI framework for Go based on the Elm architecture.',
+      stars: 32400,
+      forks: 1200,
+      primaryLanguage: 'Go',
+      healthScore: 98,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 6,
+      openIssuesCount: 75,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/charmbracelet/bubbletea',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/72346761?v=4',
+      matchReason: 'Extremely welcoming maintainers and fun terminal UI components.',
+    },
+    {
+      id: 'repo-hugo',
+      owner: 'gohugoio',
+      name: 'hugo',
+      description: 'The worlds fastest framework for building websites in Go.',
+      stars: 76800,
+      forks: 7800,
+      primaryLanguage: 'Go',
+      healthScore: 94,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 14,
+      openIssuesCount: 380,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/gohugoio/hugo',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/7131028?v=4',
+      matchReason: 'Massive static site generator project with clear roadmap and modular codebase.',
+    },
+  ],
+  typescript: [
+    {
+      id: 'repo-excalidraw',
+      owner: 'excalidraw',
+      name: 'excalidraw',
+      description: 'Virtual whiteboard for sketching hand-drawn like diagrams with collaborative editing.',
+      stars: 84200,
+      forks: 8300,
+      primaryLanguage: 'TypeScript',
+      healthScore: 94,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 8,
+      openIssuesCount: 142,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/excalidraw/excalidraw',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/59489569?v=4',
+      matchReason: 'Top TypeScript diagramming tool with excellent first-time contributor tags.',
+    },
+    {
+      id: 'repo-docusaurus',
+      owner: 'facebook',
+      name: 'docusaurus',
+      description: 'Easy to maintain open source documentation websites built with React and Markdown.',
+      stars: 56400,
+      forks: 8200,
+      primaryLanguage: 'TypeScript',
+      healthScore: 96,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 12,
+      openIssuesCount: 210,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/facebook/docusaurus',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/69631?v=4',
+      matchReason: 'Facebook open-source team actively mentors documentation and plugin fixes.',
+    },
+    {
+      id: 'repo-vitest',
+      owner: 'vitest-dev',
+      name: 'vitest',
+      description: 'Next generation testing framework powered by Vite for modern JavaScript & TypeScript.',
+      stars: 15100,
+      forks: 1300,
+      primaryLanguage: 'TypeScript',
+      healthScore: 98,
+      lastCommitDaysAgo: 1,
+      maintainerResponseHours: 6,
+      openIssuesCount: 160,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/vitest-dev/vitest',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/96563500?v=4',
+      matchReason: 'Ultra-fast testing framework with responsive core team and detailed test coverage.',
+    },
+    {
+      id: 'repo-zod',
+      owner: 'colinhacks',
+      name: 'zod',
+      description: 'TypeScript-first schema validation with static type inference.',
+      stars: 34100,
+      forks: 1400,
+      primaryLanguage: 'TypeScript',
+      healthScore: 95,
+      lastCommitDaysAgo: 3,
+      maintainerResponseHours: 18,
+      openIssuesCount: 310,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/colinhacks/zod',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/3081782?v=4',
+      matchReason: 'Premier validation library with issues ranging from documentation to pure type-level testing.',
+    },
+  ],
+  javascript: [
+    {
+      id: 'repo-express',
+      owner: 'expressjs',
+      name: 'express',
+      description: 'Fast, unopinionated, minimalist web framework for Node.js.',
+      stars: 65100,
+      forks: 15400,
+      primaryLanguage: 'JavaScript',
+      healthScore: 89,
+      lastCommitDaysAgo: 3,
+      maintainerResponseHours: 24,
+      openIssuesCount: 178,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/expressjs/express',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/5658226?v=4',
+      matchReason: 'Ubiquitous Node.js backend foundation; great for learning HTTP internals.',
+    },
+    {
+      id: 'repo-chartjs',
+      owner: 'chartjs',
+      name: 'Chart.js',
+      description: 'Simple yet flexible JavaScript charting for designers & developers.',
+      stars: 64200,
+      forks: 11900,
+      primaryLanguage: 'JavaScript',
+      healthScore: 94,
+      lastCommitDaysAgo: 2,
+      maintainerResponseHours: 12,
+      openIssuesCount: 140,
+      hasContributingGuide: true,
+      hasCodeOfConduct: true,
+      repoUrl: 'https://github.com/chartjs/Chart.js',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/10342521?v=4',
+      matchReason: 'Interactive HTML5 Canvas charting with great visual issue reproduction.',
+    },
+  ],
+};
+
+app.get('/api/github/recommended-repos', async (req: Request, res: Response) => {
+  try {
+    const rawLanguages = (req.query.languages as string) || '';
+    const username = (req.query.username as string) || '';
+    const difficulty = (req.query.difficulty as string) || 'Beginner';
+
+    const requestedLangs = rawLanguages
+      .split(',')
+      .map((l) => l.trim().toLowerCase())
+      .filter(Boolean);
+
+    // If languages empty, default to typescript, python, javascript
+    const targetLangs = requestedLangs.length > 0 ? requestedLangs : ['typescript', 'python', 'javascript'];
+
+    let matchedRepos: any[] = [];
+
+    // Collect from catalog matching user languages
+    for (const lang of targetLangs) {
+      if (LANGUAGE_REPO_CATALOG[lang]) {
+        matchedRepos.push(...LANGUAGE_REPO_CATALOG[lang]);
+      }
+    }
+
+    // Try live GitHub search for the user's primary language to get fresh real-world repos
+    const primary = targetLangs[0];
+    if (primary) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+        const ghRes = await fetch(
+          `https://api.github.com/search/repositories?q=language:${encodeURIComponent(primary)}+stars:>1000+archived:false&sort=stars&order=desc&per_page=4`,
+          {
+            headers: {
+              'Accept': 'application/vnd.github.v3+json',
+              'User-Agent': 'GitQuest-Platform',
+            },
+            signal: controller.signal,
+          }
+        );
+        clearTimeout(timeoutId);
+
+        if (ghRes.ok) {
+          const ghData = await ghRes.json();
+          const liveItems = (ghData.items || []).map((item: any) => ({
+            id: `repo-live-${item.id}`,
+            owner: item.owner?.login,
+            name: item.name,
+            description: item.description || 'No description provided.',
+            stars: item.stargazers_count,
+            forks: item.forks_count,
+            primaryLanguage: item.language || primary,
+            healthScore: Math.min(98, 85 + (item.stargazers_count > 10000 ? 10 : 5)),
+            lastCommitDaysAgo: 1,
+            maintainerResponseHours: 12,
+            openIssuesCount: item.open_issues_count,
+            hasContributingGuide: true,
+            hasCodeOfConduct: true,
+            repoUrl: item.html_url,
+            avatarUrl: item.owner?.avatar_url,
+            matchReason: `Live GitHub trending repository matching your verified ${item.language || primary} skills.`,
+          }));
+
+          // Merge live items with curated items avoiding duplicate names
+          const existingNames = new Set(matchedRepos.map((r) => `${r.owner}/${r.name}`.toLowerCase()));
+          for (const item of liveItems) {
+            const slug = `${item.owner}/${item.name}`.toLowerCase();
+            if (!existingNames.has(slug)) {
+              matchedRepos.unshift(item);
+              existingNames.add(slug);
+            }
+          }
+        }
+      } catch (err) {
+        // Fallback to catalog
+      }
+    }
+
+    // Fallback if still empty
+    if (matchedRepos.length === 0) {
+      matchedRepos = [
+        ...LANGUAGE_REPO_CATALOG.typescript,
+        ...LANGUAGE_REPO_CATALOG.python,
+        ...LANGUAGE_REPO_CATALOG.javascript,
+      ];
+    }
+
+    res.json({
+      success: true,
+      targetLanguages: targetLangs,
+      totalCount: matchedRepos.length,
+      repositories: matchedRepos.slice(0, 8),
+    });
+  } catch (error: any) {
+    console.error('Error fetching recommended repos:', error);
+    res.json({
+      success: false,
+      repositories: LANGUAGE_REPO_CATALOG.typescript,
+    });
+  }
+});
+
 // Profile Analysis API (Analyzes Real GitHub Profile + Inputs with AI)
 app.post('/api/profile/analyze', async (req: Request, res: Response) => {
   try {

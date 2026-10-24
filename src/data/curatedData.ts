@@ -277,6 +277,62 @@ export const CURATED_MISSIONS: Mission[] = [
       level2: 'Add a validator in `validator.ts` that counts the number of column definitions. If zero, throw a ValidationError with helpful guidance.',
       level3: 'In tests, assert that running diff against an empty table emits exit code 1 with message "Table [name] must contain at least one column definition."'
     }
+  },
+  {
+    id: 'mission-bubbletea-cursor-blink',
+    repoId: 'repo-bubbletea',
+    repoName: 'bubbletea',
+    repoOwner: 'charmbracelet',
+    issueNumber: 842,
+    title: 'Support custom blink intervals for textinput cursor component in TUI models',
+    description: 'When initializing a textinput model in a Bubble Tea terminal program, the cursor blink rate is hardcoded to 530ms. Applications running in high-contrast or accessibility modes need to configure a custom time.Duration or disable blinking entirely.',
+    issueUrl: 'https://github.com/charmbracelet/bubbletea/issues/842',
+    difficulty: 'Beginner',
+    type: 'feature',
+    technologies: ['Go', 'TUI', 'Concurrency'],
+    xpReward: 190,
+    isAssigned: false,
+    availabilityStatus: 'verified_open',
+    aiExplanation: 'Bubble Tea uses an elegant Elm architecture in Go with Cmd and Msg channels. This task adds a field to the Model struct with safe fallback defaults.',
+    whyRecommended: 'Top match for Go developers. The codebase is clean, friendly, and great for learning concurrent terminal event loops.',
+    estimatedHours: 2.5,
+    keyFiles: [
+      'cursor.go',
+      'cursor_test.go'
+    ],
+    hints: {
+      level1: 'Look at `cursor.go` where `BlinkInterval` is declared as a package-level constant.',
+      level2: 'Add a `BlinkInterval time.Duration` field to `type Model struct` and a constructor option `WithBlinkInterval(d time.Duration)`.',
+      level3: 'Ensure that if `BlinkInterval <= 0`, cursor blinking tick command returns nil to stop timer goroutines.'
+    }
+  },
+  {
+    id: 'mission-tokio-docs-poll-next',
+    repoId: 'repo-tokio',
+    repoName: 'tokio',
+    repoOwner: 'tokio-rs',
+    issueNumber: 6204,
+    title: 'Clarify StreamExt poll_next cancellation safety contract in module docs',
+    description: 'Async Rust developers frequently ask about cancellation safety guarantees when dropping futures. The `tokio_stream::StreamExt` documentation needs clear tables classifying which combinators (`timeout`, `merge`, `filter`) are cancellation safe.',
+    issueUrl: 'https://github.com/tokio-rs/tokio/issues/6204',
+    difficulty: 'Beginner',
+    type: 'docs',
+    technologies: ['Rust', 'Async', 'Documentation'],
+    xpReward: 160,
+    isAssigned: false,
+    availabilityStatus: 'verified_open',
+    aiExplanation: 'Documentation in Tokio is treated with the same engineering rigor as code. You will review the implementation of stream combinators and update doc comments with rustdoc test snippets.',
+    whyRecommended: 'Perfect for Rust developers looking to make an impactful contribution to the core async runtime without complex unsafe code.',
+    estimatedHours: 2,
+    keyFiles: [
+      'tokio-stream/src/stream_ext.rs',
+      'tokio-stream/README.md'
+    ],
+    hints: {
+      level1: 'Inspect how `tokio::select!` documents cancellation safety in `tokio/src/macros/select.rs`.',
+      level2: 'Add a "# Cancellation safety" section to the top-level doc comment of `StreamExt`.',
+      level3: 'Run `cargo test --doc` to verify that all markdown code examples compile and pass.'
+    }
   }
 ];
 
