@@ -3,8 +3,8 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #080b11;
-    color: #e2e8f0;
+    background-color: #f8fafc;
+    color: #0f172a;
   }
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -12,38 +12,38 @@
   }
 }
 
-/* Subtle tactical grid background pattern */
+/* Crisp tactical grid background pattern in light mode */
 .bg-grid-pattern {
-  background-size: 32px 32px;
+  background-size: 28px 28px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
 }
 
-/* Phosphor accents and sleek quest terminal containers */
+/* Terminal panel styling for light mode */
 .terminal-panel {
-  background: #0d121c;
-  border: 1px solid #1a2333;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 .terminal-panel-active {
-  background: #0f1726;
-  border: 1px solid rgba(0, 245, 160, 0.4);
-  box-shadow: 0 0 20px -5px rgba(0, 245, 160, 0.15);
+  background: #f8fafc;
+  border: 1px solid #10b981;
+  box-shadow: 0 0 16px -3px rgba(16, 185, 129, 0.2);
 }
 
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #080b11;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 2px;
+  background: #cbd5e1;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }

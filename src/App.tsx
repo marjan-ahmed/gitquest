@@ -91,11 +91,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090D16] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-lg border border-emerald-500/40 bg-slate-900 px-4 py-3 text-xs text-white shadow-2xl shadow-emerald-950/50 animate-in fade-in slide-in-from-bottom-3 duration-200">
-          <Sparkles className="h-4 w-4 text-emerald-400 shrink-0" />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-lg border border-emerald-300 bg-white px-4 py-3 text-xs text-slate-900 shadow-xl shadow-slate-900/10 animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <Sparkles className="h-4 w-4 text-emerald-600 shrink-0" />
           <span className="font-medium">{toastMessage}</span>
         </div>
       )}
@@ -165,22 +165,22 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-6 text-xs text-slate-500">
+      <footer className="border-t border-slate-200 bg-white py-6 text-xs text-slate-500">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-300">GitQuest MVP</span>
+            <span className="font-semibold text-slate-800">GitQuest MVP</span>
             <span aria-hidden="true">·</span>
             <span>AI-Powered Open-Source Contributor Platform</span>
           </div>
 
-          <div className="flex items-center gap-4 text-slate-400">
+          <div className="flex items-center gap-4 text-slate-500">
             {profile ? (
               <>
-                <span>Logged in as <strong className="text-slate-200">@{profile.githubUsername}</strong></span>
+                <span>Logged in as <strong className="text-slate-800">@{profile.githubUsername}</strong></span>
                 <span aria-hidden="true">·</span>
                 <button
                   onClick={handleLogout}
-                  className="text-rose-400 hover:text-rose-300 transition"
+                  className="text-rose-600 hover:text-rose-700 font-medium transition"
                 >
                   Log Out
                 </button>
@@ -189,14 +189,14 @@ export default function App() {
               <>
                 <button
                   onClick={handleLoadDemo}
-                  className="hover:text-cyan-400 transition"
+                  className="hover:text-sky-600 transition"
                 >
                   Load Demo Account
                 </button>
                 <span aria-hidden="true">·</span>
                 <button
                   onClick={() => setIsOnboardingOpen(true)}
-                  className="text-emerald-400 hover:text-emerald-300 transition"
+                  className="text-emerald-600 hover:text-emerald-700 font-semibold transition"
                 >
                   Start Onboarding
                 </button>
@@ -205,7 +205,7 @@ export default function App() {
             <span aria-hidden="true">·</span>
             <button
               onClick={() => setCurrentTab('etiquette')}
-              className="hover:text-emerald-400 transition"
+              className="hover:text-emerald-600 transition"
             >
               Etiquette Standards
             </button>
