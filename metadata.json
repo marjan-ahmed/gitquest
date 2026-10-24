@@ -1,0 +1,6 @@
+{
+  "name": "GitQuest - Open Source AI Mentor",
+  "description": "Gamified open-source contribution platform helping beginner developers discover active GitHub repos and issues with an AI mentor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
